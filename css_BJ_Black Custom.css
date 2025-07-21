@@ -1,29 +1,3 @@
-#menu, #userinfo, #searchbars {
-            position: fixed !important;
-            width: 100% !important;
-            z-index: 1000 !important; /* Garante que fiquem acima de outros elementos */
-        }
-
-        #menu {
-            top: 0 !important;
-            background-color: #0D1117; /* Adiciona um background para garantir visibilidade */
-        }
-
-        #userinfo {
-            top: 30px !important; /* Ajuste conforme a altura do #menu, se necessário */
-            background-color: #0D1117; /* Adiciona um background para garantir visibilidade */
-        }
-
-        #searchbars {
-            top: 60px !important; /* Reposiciona para 60px do topo */
-            background-color: #0D1117; /* Adiciona o background solicitado */
-        }
-
-        /* Oculta a div #alerts */
-        #alerts {
-            display: none !important;
-        }
-
 
 body {
     color: #b5b5b5;
