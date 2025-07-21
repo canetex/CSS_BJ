@@ -233,7 +233,6 @@ ul.thin li {
     min-width: 850px;
     /background: #0D1117;
     box-shadow: 0 1px 4px #000;
-    border-bottom: 1px solid #303030;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.3s ease;
 }
@@ -1460,11 +1459,22 @@ cursor: help;
         }
 
         #searchbars {
-            top: 60px !important; /* Reposiciona para 60px do topo */
+            top: 55px !important; /* Reposiciona para 55px do topo */
             background-color: #0D1117; /* Adiciona o background solicitado */
+            border-bottom: 1px solid #303030;
+            z-index: 10 !important;
+
         }
 
         /* Oculta a div #alerts */
         #alerts {
             display: none !important;
         }
+
+#nav_staffinbox, #nav_donations {
+    visibility: hidden;
+}
+#noteAlertMsg {
+    display: none !important;
+    z-index: -1000 !important; /* Garante que fiquem aabaixo de outros elementos */
+} 
