@@ -1015,6 +1015,12 @@ button, input[type=button], input[type=submit] {
     padding: 0;
     border-radius: 10px;
 }
+/* Menu principal com posicionamento flexível (permite injertar Destaques no fluxo) */
+#menudrop > ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+}
 #menudrop ul a {
     display: block;
     color: #ccc;
@@ -1095,6 +1101,46 @@ button, input[type=button], input[type=submit] {
     background: #454545; /* Ajuste conforme o design */
     z-index: 1;
     background: #1D2530;
+}
+
+/* --- Destaques no menu principal (extraído do submenu de Torrents) --- */
+
+/* Libera os filhos do submenu de Torrents para o fluxo do menu principal */
+#nav_torrents > ul {
+    display: flex !important;
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Oculta os itens do submenu de Torrents por padrão */
+#nav_torrents > ul > li {
+    display: none;
+}
+
+/* Resgata apenas Destaques e injeta no fluxo principal (após Torrents) */
+#nav_torrents > ul > li:has(a[href*="action=destaques"]) {
+    display: inline-block !important;
+    position: relative !important;
+    order: 3;
+}
+
+/* Restaura o submenu suspenso padrão ao passar o mouse em Torrents */
+#nav_torrents:hover > ul > li {
+    display: block !important;
+}
+
+/* Estiliza o link Destaques como item principal do menu */
+#nav_torrents > ul > li:has(a[href*="action=destaques"]) > a {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 32px;
+    padding: 0 15px;
+    display: block;
+    color: #ccc;
+    text-decoration: none;
 }
 
 #irtopo {
