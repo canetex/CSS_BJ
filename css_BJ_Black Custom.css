@@ -1015,12 +1015,6 @@ button, input[type=button], input[type=submit] {
     padding: 0;
     border-radius: 10px;
 }
-/* Menu principal com posicionamento flexível (permite injertar Destaques no fluxo) */
-#menudrop > ul {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-}
 #menudrop ul a {
     display: block;
     color: #ccc;
@@ -1103,88 +1097,76 @@ button, input[type=button], input[type=submit] {
     background: #1D2530;
 }
 
-/* --- Destaques como item de nível principal (HOME | TORRENTS | DESTAQUES | ...) --- */
+/* --- Promove APENAS o link Destaques para a barra principal --- */
 /*
- * Pressuposto: Destaques permanece no DOM dentro do submenu de #nav_torrents
- * (a[href*="action=destaques"]) e :has() é suportado pelos browsers-alvo.
- * Objetivo: uma faixa a mais na barra superior, não apenas um item do dropdown.
+ * Pressuposto: Destaques permanece no DOM em #nav_torrents
+ * (a[href*="action=destaques"]). Não altera o layout float do #menudrop.
+ * Reserva 145px à direita de Torrents e posiciona só esse link na barra.
  */
 
-/* Menu principal em flex (já definido em #menudrop > ul); li sem float para o flex */
-#menudrop > ul > li {
-    float: none;
+/* Espaço na barra para Destaques (evita sobrepor Forums).
+ * Precisa vencer #menudrop ul li { margin: 0 } (especificidade maior). */
+#menudrop ul li#nav_torrents {
+    margin-right: 145px;
 }
 
-/* Torrents vira faixa composta: [Torrents][Destaques] na mesma linha do menu */
-#nav_torrents {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-start !important;
-    width: auto !important;
-    position: relative !important;
-}
-
-#nav_torrents > a {
-    flex: 0 0 145px;
-    width: 145px;
-    box-sizing: border-box;
-}
-
-/* Submenu sempre no fluxo (não absolute), à direita de Torrents */
+/* Submenu de Torrents sempre “ativo” só para expor Destaques; resto some até o hover */
 #nav_torrents > ul {
     display: block !important;
-    position: static !important;
-    flex: 0 0 145px;
-    width: 145px !important;
-    height: 32px;
-    overflow: visible;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 145px;
     background: transparent !important;
-    border: none !important;
     padding: 0 !important;
     margin: 0 !important;
-    top: auto !important;
-    left: auto !important;
+    border: none !important;
 }
 
-/* Oculta os itens do submenu de Torrents por padrão */
 #nav_torrents > ul > li {
     display: none;
-    float: none;
-    width: 145px;
-    box-sizing: border-box;
 }
 
-/* Promove Destaques para a barra principal (ao lado de Torrents) */
+/* Destaques sobe para a faixa HOME | TORRENTS | DESTAQUES | ... */
 #nav_torrents > ul > li:has(a[href*="action=destaques"]) {
     display: block !important;
-    position: relative !important;
-    height: 32px;
+    position: absolute !important;
+    top: -32px;
+    left: 145px;
+    width: 145px;
     background: transparent;
+    z-index: 20;
 }
 
 #nav_torrents > ul > li:has(a[href*="action=destaques"]):hover {
     background: #0D1117;
 }
 
-/* Estiliza Destaques como item principal do menu */
 #nav_torrents > ul > li:has(a[href*="action=destaques"]) > a {
     font-weight: 700;
     font-size: 12px;
     line-height: 32px;
     padding: 0 15px;
-    display: block;
     color: #ccc;
     text-decoration: none;
 }
 
-/* Demais itens de Torrents: dropdown sob o link Torrents (deslocados -145px) */
+/* Demais itens: dropdown clássico sob Torrents (Destaques permanece na barra) */
+#nav_torrents:hover > ul {
+    background: #1D2530 !important;
+}
+
 #nav_torrents:hover > ul > li:not(:has(a[href*="action=destaques"])) {
     display: block !important;
-    position: relative;
-    width: 145px;
-    margin-left: -145px;
+    position: static;
     background: #1D2530;
-    z-index: 200;
+}
+
+#nav_torrents:hover > ul > li:has(a[href*="action=destaques"]) {
+    position: absolute !important;
+    top: -32px;
+    left: 145px;
+    background: transparent;
 }
 
 #irtopo {
