@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         BJ - Promover Destaques no menu
 // @namespace    https://github.com/canetex/CSS_BJ
-// @version      1.2.0
+// @version      1.2.1
 // @description  Move apenas o item Destaques (submenu de Torrents) para o menu principal: HOME | TORRENTS | DESTAQUES | ...
 // @author       canetex
-// @match        *://*/*
+// @match        https://bj-share.info/*
 // @run-at       document-idle
 // @grant        none
 // ==/UserScript==
@@ -17,6 +17,7 @@
  * 4. persistir_logs — O(n) serialização
  * 5. render_painel — O(n) linhas no painel
  *
+ * Ativo somente em: https://bj-share.info/*
  * Logs NÃO dependem só do Console (somem com reload).
  * Há painel fixo na página + localStorage.
  * Filtrar console por: [BJ Destaques]
@@ -32,7 +33,7 @@
   const STORAGE_KEY = '__bj_destaques_logs_v1';
   const MAX_LOG_LINES = 200;
   const PAINEL_ID = 'bj-destaques-debug-panel';
-  const SCRIPT_VERSION = '1.2.0';
+  const SCRIPT_VERSION = '1.2.1';
 
   const log_buffer = [];
 
