@@ -1103,36 +1103,70 @@ button, input[type=button], input[type=submit] {
     background: #1D2530;
 }
 
-/* --- Destaques no menu principal (extraído do submenu de Torrents) --- */
+/* --- Destaques como item de nível principal (HOME | TORRENTS | DESTAQUES | ...) --- */
+/*
+ * Pressuposto: Destaques permanece no DOM dentro do submenu de #nav_torrents
+ * (a[href*="action=destaques"]) e :has() é suportado pelos browsers-alvo.
+ * Objetivo: uma faixa a mais na barra superior, não apenas um item do dropdown.
+ */
 
-/* Libera os filhos do submenu de Torrents para o fluxo do menu principal */
-#nav_torrents > ul {
+/* Menu principal em flex (já definido em #menudrop > ul); li sem float para o flex */
+#menudrop > ul > li {
+    float: none;
+}
+
+/* Torrents vira faixa composta: [Torrents][Destaques] na mesma linha do menu */
+#nav_torrents {
     display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    width: auto !important;
+    position: relative !important;
+}
+
+#nav_torrents > a {
+    flex: 0 0 145px;
+    width: 145px;
+    box-sizing: border-box;
+}
+
+/* Submenu sempre no fluxo (não absolute), à direita de Torrents */
+#nav_torrents > ul {
+    display: block !important;
     position: static !important;
+    flex: 0 0 145px;
+    width: 145px !important;
+    height: 32px;
+    overflow: visible;
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
     margin: 0 !important;
+    top: auto !important;
+    left: auto !important;
 }
 
 /* Oculta os itens do submenu de Torrents por padrão */
 #nav_torrents > ul > li {
     display: none;
+    float: none;
+    width: 145px;
+    box-sizing: border-box;
 }
 
-/* Resgata apenas Destaques e injeta no fluxo principal (após Torrents) */
+/* Promove Destaques para a barra principal (ao lado de Torrents) */
 #nav_torrents > ul > li:has(a[href*="action=destaques"]) {
-    display: inline-block !important;
-    position: relative !important;
-    order: 3;
-}
-
-/* Restaura o submenu suspenso padrão ao passar o mouse em Torrents */
-#nav_torrents:hover > ul > li {
     display: block !important;
+    position: relative !important;
+    height: 32px;
+    background: transparent;
 }
 
-/* Estiliza o link Destaques como item principal do menu */
+#nav_torrents > ul > li:has(a[href*="action=destaques"]):hover {
+    background: #0D1117;
+}
+
+/* Estiliza Destaques como item principal do menu */
 #nav_torrents > ul > li:has(a[href*="action=destaques"]) > a {
     font-weight: 700;
     font-size: 12px;
@@ -1141,6 +1175,16 @@ button, input[type=button], input[type=submit] {
     display: block;
     color: #ccc;
     text-decoration: none;
+}
+
+/* Demais itens de Torrents: dropdown sob o link Torrents (deslocados -145px) */
+#nav_torrents:hover > ul > li:not(:has(a[href*="action=destaques"])) {
+    display: block !important;
+    position: relative;
+    width: 145px;
+    margin-left: -145px;
+    background: #1D2530;
+    z-index: 200;
 }
 
 #irtopo {
